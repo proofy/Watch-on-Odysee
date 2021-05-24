@@ -3,7 +3,7 @@ export interface LbrySettings {
   redirect: keyof typeof redirectDomains
 }
 
-export const DEFAULT_SETTINGS: LbrySettings = { enabled: true, redirect: 'Odysee' };
+export const DEFAULT_SETTINGS: LbrySettings = { enabled: true, redirect: odysee };
 
 export const redirectDomains = {
   'lbry.tv': { prefix: 'https://lbry.tv/', display: 'LBRY.tv' },
