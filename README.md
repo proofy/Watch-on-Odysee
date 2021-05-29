@@ -1,5 +1,7 @@
 ## Looking for contributors :)
 # Watch on Odysee
+![WOO_marquee promo tile 1400x560](https://user-images.githubusercontent.com/16674412/120082996-48100880-c0c6-11eb-83fe-526847c48026.jpg)
+
 
 A plugin for web browsers that brings more utility for LBRY Protocol by allowing you to find people you watch on YouTube that are availible on LBRY.tv/Odysee/Desktop App and other LBRY Protocol based apps/websites, allows you to easly check your subscribtion list and much more!
 
