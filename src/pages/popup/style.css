@@ -8,6 +8,10 @@ header {
     justify-items: center;
 }
 
+#logo {
+    width: 5em;
+}
+
 main {
     display: grid;
     gap: 2em;

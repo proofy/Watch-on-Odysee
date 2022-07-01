@@ -143,23 +143,7 @@ async function requestResolveById(...params: Parameters<typeof resolveById>): Re
       videoElement.pause()
     })
 
-    if (platfrom === targetPlatformSettings.app) {
-      if (document.hidden) await new Promise((resolve) => document.addEventListener('visibilitychange', resolve, { once: true }))
-
-      // On redirect with app, people might choose to cancel browser's dialog
-      // So we dont destroy the current window automatically for them
-      // And also we are keeping the same window for less distiraction
-      if (settings.redirect) {
-        location.replace(url.toString())
-      }
-      else {
-        open(url.toString(), '_blank')
-        if (window.history.length === 1) window.close()
-        else window.history.back()
-      }
-    }
-    else
-      location.replace(url.toString())
+    location.replace(url.toString())
   }
 
   let removeVideoTimeUpdateListener: (() => void) | null = null

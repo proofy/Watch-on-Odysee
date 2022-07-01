@@ -1,7 +1,6 @@
 import { chunk } from "lodash"
 import path from "path"
 import { getExtensionSettingsAsync, ytUrlResolversSettings } from "../../settings"
-import { sign } from "../crypto"
 import { lbryUrlCache } from "./urlCache"
 
 const QUERY_CHUNK_SIZE = 100
@@ -18,7 +17,7 @@ interface ApiResponse {
 }
 
 export async function resolveById(params: Paramaters, progressCallback?: (progress: number) => void): Promise<Results> {
-    const { urlResolver: urlResolverSettingName, privateKey, publicKey } = await getExtensionSettingsAsync()
+    const { urlResolver: urlResolverSettingName } = await getExtensionSettingsAsync()
     const urlResolverSetting = ytUrlResolversSettings[urlResolverSettingName]
 
     async function requestChunk(params: Paramaters) {
@@ -46,11 +45,6 @@ export async function resolveById(params: Paramaters, progressCallback?: (progre
         url.pathname = path.join(url.pathname, '/resolve')
         url.searchParams.set('video_ids', params.filter((item) => item.type === 'video').map((item) => item.id).join(','))
         url.searchParams.set('channel_ids', params.filter((item) => item.type === 'channel').map((item) => item.id).join(','))
-        if (urlResolverSetting.signRequest && publicKey && privateKey)
-            url.searchParams.set('keys', JSON.stringify({
-                signature: await sign(url.searchParams.toString(), privateKey),
-                publicKey
-            }))
 
         const apiResponse = await fetch(url.toString(), { cache: 'no-store' })
         if (apiResponse.ok) {
