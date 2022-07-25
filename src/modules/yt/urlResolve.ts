@@ -5,7 +5,8 @@ import { lbryUrlCache } from "./urlCache"
 
 const QUERY_CHUNK_SIZE = 100
 
-export type YtUrlResolveItem = { type: 'video' | 'channel', id: string }
+export type ResolveUrlTypes = 'video' | 'channel'
+export type YtUrlResolveItem = { type: ResolveUrlTypes, id: string }
 type Results = Record<string, YtUrlResolveItem>
 type Paramaters = YtUrlResolveItem[]
 

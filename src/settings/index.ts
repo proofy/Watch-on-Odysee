@@ -1,5 +1,6 @@
 import type { JSX } from "preact"
 import { useEffect, useReducer } from "preact/hooks"
+import type { ResolveUrlTypes } from "../modules/yt/urlResolve"
 
 export interface ExtensionSettings {
   redirect: boolean
@@ -55,7 +56,7 @@ const targetPlatform = (o: {
   displayName: string
   theme: string
   button: {
-    text: string
+    platformNameText: string,
     icon: string
     style?:
     {
@@ -75,7 +76,7 @@ export const targetPlatformSettings = {
     displayName: 'Odysee',
     theme: 'linear-gradient(130deg, #c63d59, #f77937)',
     button: {
-      text: 'Watch on Odysee',
+      platformNameText: 'Odysee',
       icon: chrome.runtime.getURL('assets/icons/lbry/odysee-logo.svg')
     }
   })
@@ -86,8 +87,13 @@ export const targetPlatformSettings = {
 const sourcePlatform = (o: {
   hostnames: string[]
   htmlQueries: {
-    mountButtonBefore: string,
-    videoPlayer: string
+    mountPoints: {
+      mountButtonBefore: Record<ResolveUrlTypes, string>,
+      mountPlayerButtonBefore: string | null,
+    }
+    videoPlayer: string,
+    videoDescription: string
+    channelLinks: string | null
   }
 }) => o
 export type SourcePlatform = ReturnType<typeof sourcePlatform>
@@ -102,15 +108,32 @@ export const sourcePlatfromSettings = {
   "youtube.com": sourcePlatform({
     hostnames: ['www.youtube.com'],
     htmlQueries: {
-      mountButtonBefore: 'ytd-video-owner-renderer~#subscribe-button',
-      videoPlayer: '#ytd-player video'
+      mountPoints: {
+        mountButtonBefore: {
+          video: 'ytd-video-owner-renderer~#subscribe-button',
+          channel: '#channel-header-container #buttons'
+        },
+        mountPlayerButtonBefore: 'ytd-player .ytp-right-controls',
+      },
+      videoPlayer: '#ytd-player video',
+      videoDescription: 'ytd-video-secondary-info-renderer #description',
+      channelLinks: '#channel-header #links-holder'
     }
   }),
   "yewtu.be": sourcePlatform({
     hostnames: ['yewtu.be', 'vid.puffyan.us', 'invidio.xamh.de', 'invidious.kavin.rocks'],
     htmlQueries: {
-      mountButtonBefore: '#watch-on-youtube',
-      videoPlayer: '#player-container video'
+      mountPoints: {
+        mountButtonBefore:
+        {
+          video: '#watch-on-youtube',
+          channel: '#subscribe'
+        },
+        mountPlayerButtonBefore: null,
+      },
+      videoPlayer: '#player-container video',
+      videoDescription: '#descriptionWrapper',
+      channelLinks: null
     }
   })
 }
