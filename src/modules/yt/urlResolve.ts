@@ -47,7 +47,12 @@ export async function resolveById(params: Paramaters, progressCallback?: (progre
         url.searchParams.set('video_ids', params.filter((item) => item.type === 'video').map((item) => item.id).join(','))
         url.searchParams.set('channel_ids', params.filter((item) => item.type === 'channel').map((item) => item.id).join(','))
 
-        const apiResponse = await fetch(url.toString(), { cache: 'no-store' })
+        const controller = new AbortController()
+        // 5 second timeout:
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+        const apiResponse = await fetch(url.toString(), { cache: 'no-store', signal: controller.signal })
+        clearTimeout(timeoutId)
+        
         if (apiResponse.ok) {
             const response: ApiResponse = await apiResponse.json()
             for (const item of params) {
