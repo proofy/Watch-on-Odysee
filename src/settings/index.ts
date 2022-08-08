@@ -5,13 +5,19 @@ import type { ResolveUrlTypes } from "../modules/yt/urlResolve"
 export interface ExtensionSettings {
   redirect: boolean
   targetPlatform: TargetPlatformName
-  urlResolver: YTUrlResolverName
+  urlResolver: YTUrlResolverName,
+  videoSubButton: boolean
+  videoPlayerButton: boolean
+  channelSubButton: boolean
 }
 
 export const DEFAULT_SETTINGS: ExtensionSettings = {
   redirect: true,
   targetPlatform: 'odysee',
-  urlResolver: 'odyseeApi'
+  urlResolver: 'odyseeApi',
+  videoSubButton: true,
+  videoPlayerButton: true,
+  channelSubButton: true,
 }
 
 export function getExtensionSettingsAsync(): Promise<ExtensionSettings> {
@@ -89,11 +95,11 @@ const sourcePlatform = (o: {
   htmlQueries: {
     mountPoints: {
       mountButtonBefore: Record<ResolveUrlTypes, string>,
-      mountPlayerButtonBefore: string | null,
+      mountPlayerButtonBefore: string,
     }
     videoPlayer: string,
     videoDescription: string
-    channelLinks: string | null
+    channelLinks: string
   }
 }) => o
 export type SourcePlatform = ReturnType<typeof sourcePlatform>
@@ -126,14 +132,14 @@ export const sourcePlatfromSettings = {
       mountPoints: {
         mountButtonBefore:
         {
-          video: '#watch-on-youtube',
+          video: '#subscribe',
           channel: '#subscribe'
         },
-        mountPlayerButtonBefore: null,
+        mountPlayerButtonBefore: '#player-container ~ .h-box > h1 > a',
       },
       videoPlayer: '#player-container video',
       videoDescription: '#descriptionWrapper',
-      channelLinks: null
+      channelLinks: '#descriptionWrapper'
     }
   })
 }
