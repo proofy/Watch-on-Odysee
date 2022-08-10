@@ -11,8 +11,8 @@ chrome.runtime.onMessage.addListener(({ method, data }, sender, sendResponse) =>
     switch (method) {
       case 'openTab':
         {
-          const { href, active }: { href: string, active: boolean } = JSON.parse(data)
-          chrome.tabs.create({ url: href, active })
+          const { href }: { href: string } = JSON.parse(data)
+          chrome.tabs.create({ url: href, active: sender.tab?.active, index: sender.tab ? sender.tab.index + 1 : undefined })
         }
         break
       case 'resolveUrl':
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(({ method, data }, sender, sendResponse) =>
           console.log('lbrypathname request', params, await promise)
           resolve(await promise)
         } catch (error) {
-          sendResponse(`error:${(error as any).toString()}`)
+          sendResponse(`error: ${(error as any).toString()}`)
           console.error(error)
         }
         finally {

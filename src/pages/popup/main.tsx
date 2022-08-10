@@ -5,11 +5,11 @@ import { lbryUrlCache } from '../../modules/yt/urlCache'
 import { setExtensionSetting, targetPlatformSettings, useExtensionSettings } from '../../settings'
 
 function WatchOnLbryPopup(params: {}) {
-  const { redirect, videoSubButton, channelSubButton, videoPlayerButton } = useExtensionSettings()
+  const { redirectChannel, redirectVideo, redirectVideoPlaylist, buttonVideoSub, buttonChannelSub, buttonVideoPlayer } = useExtensionSettings()
   let [loading, updateLoading] = useState(() => false)
+  let [route, updateRoute] = useState<string>(() => '')
 
   const dialogManager = createDialogManager()
-
 
   async function loads<T>(operation: Promise<T>) {
     try {
@@ -27,66 +27,65 @@ function WatchOnLbryPopup(params: {}) {
     <Dialogs manager={dialogManager} />
     {
       <header>
-        <section>
-          <img id="logo" src={targetPlatformSettings.odysee.button.icon}></img>
-          <label>Watch on Odysee</label>
-        </section>
+        <img id="logo" src={targetPlatformSettings.odysee.button.icon}></img>
+        <label>Watch on Odysee</label>
       </header>
     }
     {
       <main>
         <section>
-            <label>Pick a mode</label>
-            <div className='options'>
-              <a onClick={() => setExtensionSetting('redirect', true)} className={`button ${redirect ? 'active' : ''}`}>
-                Redirect
-              </a>
-              <a onClick={() => setExtensionSetting('redirect', false)} className={`button ${redirect ? '' : 'active'}`}>
-                Show a button
+          <label>Auto redirect when:</label>
+          <div className='options'>
+            <div class="toggle-option">
+              <span>Playing a video</span>
+              <a onClick={() => setExtensionSetting('redirectVideo', !redirectVideo)} className={`button ${redirectVideo ? 'active' : ''}`}>
+                {redirectVideo ? 'Active' : 'Deactive'}
               </a>
             </div>
-          </section>
-          {
-            !redirect &&
-            <section>
-              <label>Show button at:</label>
-              <b className='filled'>Video</b>
-              <div className='options'>
-                <div className="left">
-                  <span>Subscribe Button:</span>
-                </div>
-                <a onClick={() => setExtensionSetting('videoSubButton', !videoSubButton)} className={`button ${videoSubButton ? 'active' : ''}`}>
-                  {videoSubButton ? 'Active' : 'Deactive'}
-                </a>
-              </div>
-              <div className='options'>
-                <div className="left">
-                  <span>Video Player:</span>
-                </div>
-                <a onClick={() => setExtensionSetting('videoPlayerButton', !videoPlayerButton)} className={`button ${videoPlayerButton ? 'active' : ''}`}>
-                  {videoPlayerButton ? 'Active' : 'Deactive'}
-                </a>
-              </div>
-              <b className='filled'>Channel</b>
-              <div className='options'>
-                <div className="left">
-                  <span>Subscribe Button:</span>
-                </div>
-                <a onClick={() => setExtensionSetting('channelSubButton', !channelSubButton)} className={`button ${channelSubButton ? 'active' : ''}`}>
-                  {channelSubButton ? 'Active' : 'Deactive'}
-                </a>
-              </div>
-            </section>
-          }
+            <div class="toggle-option">
+              <span>Playing a playlist</span>
+              <a onClick={() => setExtensionSetting('redirectVideoPlaylist', !redirectVideoPlaylist)} className={`button ${redirectVideoPlaylist ? 'active' : ''}`}>
+                {redirectVideoPlaylist ? 'Active' : 'Deactive'}
+              </a>
+            </div>
+            <div class="toggle-option">
+              <span>Viewing a channel</span>
+              <a onClick={() => setExtensionSetting('redirectChannel', !redirectChannel)} className={`button ${redirectChannel ? 'active' : ''}`}>
+                {redirectChannel ? 'Active' : 'Deactive'}
+              </a>
+            </div>
+          </div>
+        </section>
         <section>
-          <a onClick={() => loads(lbryUrlCache.clearAll().then(() => dialogManager.alert("Cleared Cache!")))} className={`button active`}>
-            Clear Resolver Cache
-          </a>
+          <label>Show redirect button on:</label>
+          <div className='options'>
+            <div className="toggle-option">
+              <span>Video Page</span>
+              <a onClick={() => setExtensionSetting('buttonVideoSub', !buttonVideoSub)} className={`button ${buttonVideoSub ? 'active' : ''}`}>
+                {buttonVideoSub ? 'Active' : 'Deactive'}
+              </a>
+            </div>
+            <div className="toggle-option">
+              <span>Channel Page</span>
+              <a onClick={() => setExtensionSetting('buttonChannelSub', !buttonChannelSub)} className={`button ${buttonChannelSub ? 'active' : ''}`}>
+                {buttonChannelSub ? 'Active' : 'Deactive'}
+              </a>
+            </div>
+            <div className="toggle-option">
+              <span>Video Player</span>
+              <a onClick={() => setExtensionSetting('buttonVideoPlayer', !buttonVideoPlayer)} className={`button ${buttonVideoPlayer ? 'active' : ''}`}>
+                {buttonVideoPlayer ? 'Active' : 'Deactive'}
+              </a>
+            </div>
+          </div>
         </section>
         <section>
           <label>Tools</label>
           <a target='_blank' href='/pages/YTtoLBRY/index.html' className={`filled`}>
             Subscription Converter
+          </a>
+          <a onClick={() => loads(lbryUrlCache.clearAll().then(() => dialogManager.alert("Cleared Cache!")))} className={`button active`}>
+            Clear Resolver Cache
           </a>
         </section>
       </main>
