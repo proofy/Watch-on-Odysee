@@ -19,6 +19,7 @@
     "watch:v3": "npm run clear:dist ; npm run pick:manifest:v3 && npm-run-all -l -p watch:parcel watch:assets",
     "watch": "npm run watch:v3",
     "start:chrome": "web-ext run -t chromium --source-dir ./dist",
+    "start:brave": "web-ext run --target=chromium --chromium-binary=/usr/bin/brave --source-dir=./dist",
     "start:firefox": "web-ext run --source-dir ./dist",
     "test": "jest"
   },

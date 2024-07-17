@@ -28,7 +28,7 @@ function WatchOnLbryPopup(params: {}) {
     {
       <header>
         <img id="logo" src={targetPlatformSettings.odysee.button.icon}></img>
-        <label>Watch on Odysee</label>
+        <h1>Watch on Odysee</h1>
       </header>
     }
     {

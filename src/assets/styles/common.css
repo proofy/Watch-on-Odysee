@@ -79,10 +79,11 @@ pre {
     text-align: center;
     padding: .5em 1em;
 
-    background: var(--color-dark);
+    background: rgba(255,0,0,.2);
     color: var(--color-light);
+    font-weight:500;
 
-    border-radius: .5em;
+    border-radius: 5em;
     border: unset;
 
     font: inherit;

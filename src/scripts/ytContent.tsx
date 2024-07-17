@@ -41,22 +41,21 @@ import { getExtensionSettingsAsync, getSourcePlatfromSettingsFromHostname, getTa
 
     return <div
       style={{
-        display: 'grid',
-        gridTemplateRows: '36px',
-        gridAutoColumns: 'auto',
-        alignContent: 'center'
+        display: 'flex',
+        height: '36px',
+        alignContent: 'center',
+        minWidth: 'fit-content',
+        marginRight: '8px'
       }}
     >
       <a href={`${url.href}`} target='_blank' role='button'
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '7px',
-          borderRadius: '2px',
-          padding: '0 16px',
-          margin: '0 4px',
-
-          fontWeight: 'bold',
+          gap: '0px',
+          borderRadius: '20px',
+          padding: '0 6px 0 4px',        
+          fontWeight: '500',
           border: '0',
           color: 'whitesmoke',
           fontSize: '14px',
@@ -69,8 +68,11 @@ import { getExtensionSettingsAsync, getSourcePlatfromSettingsFromHostname, getTa
           videoElement.pause()
         })}
       >
-        <img src={target.platform.button.icon} height={24} style={{ ...target.platform.button.style?.icon }} />
-        <span>{target.type === 'channel' ? 'Channel on' : 'Watch on'} {target.platform.button.platformNameText}</span>
+        <img src={target.platform.button.icon} height={24} style={{ marginRight: '6px', ...target.platform.button.style?.icon }} />
+        <span style={{ 
+          minWidth: 'fit-content',
+          whiteSpace: 'nowrap' 
+        }}>{target.type === 'channel' ? 'Channel on' : 'Watch on'} {target.platform.button.platformNameText}</span>
       </a>
     </div>
   }
@@ -81,10 +83,10 @@ import { getExtensionSettingsAsync, getSourcePlatfromSettingsFromHostname, getTa
 
     return <div
       style={{
-        display: 'grid',
-        gridTemplateRows: '36px',
-        gridAutoColumns: 'auto',
-        alignContent: 'center'
+        display: 'flex',
+        height: '48px',
+        alignContent: 'center',
+        justifyContent: 'center'
       }}
     >
       <a href={`${url.href}`} target='_blank' role='button'
@@ -107,7 +109,6 @@ import { getExtensionSettingsAsync, getSourcePlatfromSettingsFromHostname, getTa
         })}
       >
         <img src={target.platform.button.icon} height={24} style={{ ...target.platform.button.style?.icon }} />
-        <span>{target.type === 'channel' ? 'Channel on' : 'Watch on'} {target.platform.button.platformNameText}</span>
       </a>
     </div>
   }
