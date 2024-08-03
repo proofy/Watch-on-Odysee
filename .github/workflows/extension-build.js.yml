@@ -26,8 +26,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn
     - run: npm run build
-    - run: npm run 
     - run: npm run build:webext
+
     - name: Archive extension directory
       uses: actions/upload-artifact@v2
       with:
@@ -35,3 +35,12 @@ jobs:
         path: |
           dist
           web-ext-artifacts
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref }}  # This will use the branch name or tag
+        files: web-ext-artifacts/*.zip  # Adjust this to point to your zip file
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
