@@ -41,7 +41,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref }}  # This will use the branch name or tag
+        tag_name: v${{ github.run_number }}  # This will use the branch name or tag 
         files: web-ext-artifacts/*.zip  # Adjust this to point to your zip file
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
