@@ -65,11 +65,4 @@ Please make sure to update tests as appropriate.
 ## License
 [GPL-3.0 License](LICENSE)
 
-## Support
 
-If you want you can donate me with crypto :)
-
-LBC : bXeBKSjPygVbvkBH79Bp6CxiyeRC2hpVQ3
-
-
-This will help future plugin development :)
