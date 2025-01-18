@@ -11,7 +11,7 @@ This plugin is using LBRY Inc YouTube Sync API to check if video fot synchronize
 ## Installation
 
 [![Get it on Firefox](doc/img/AMO-button_1.png)](https://addons.mozilla.org/en/firefox/addon/watch-on-odysee/)
-[![Get it on Chrome](doc/img/chrome-small-border.png)](https://chrome.google.com/webstore/detail/watch-on-odysee/kofmhmemalhemmpkfjhjfkkhifonoann?hl=en&authuser=0)
+Google removed it from the Webstore
 
 ## Build
 
